@@ -31,21 +31,86 @@ const nav: { id: View; label: string }[] = [
 const days = Array.from({ length: 35 }, (_, i) => i - 2);
 const monthDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-function Calendar({ compact = false }: { compact?: boolean }) {
-  return <div className={compact ? "mini-calendar" : "calendar-full"}>
-    <div className="calendar-head"><button aria-label="Previous month">‹</button><strong>May 2025</strong><button aria-label="Next month">›</button></div>
-    <div className="calendar-grid weekdays">{monthDays.map(d => <span key={d}>{d}</span>)}</div>
-    <div className="calendar-grid">
-      {days.map((day, i) => {
-        const valid = day > 0 && day <= 31;
-        return <button key={i} disabled={!valid} className={`${day >= 5 && day <= 9 ? "period" : ""} ${day === 16 ? "today" : ""} ${day === 19 ? "ovulation" : ""}`}>
-          {valid ? day : ""}
-          {day === 19 && <i />}
-        </button>;
-      })}
+
+function Calendar({
+  compact = false,
+  selectedDate,
+  periodDates = [],
+  onDateClick,
+}: {
+  compact?: boolean;
+  selectedDate?: string;
+  periodDates?: string[];
+  onDateClick?: (date: string) => void;
+}) {
+  const [visibleMonth, setVisibleMonth] = useState(() => new Date());
+  const [localSelected, setLocalSelected] = useState("");
+
+  const year = visibleMonth.getFullYear();
+  const month = visibleMonth.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month + 1, 0).getDate();
+
+  const dateKey = (day: number) =>
+    `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+  const chosenDate = selectedDate ?? localSelected;
+
+  return (
+    <div className={compact ? "mini-calendar" : "calendar-full"}>
+      <div className="calendar-head">
+        <button type="button" onClick={() => setVisibleMonth(new Date(year, month - 1, 1))} aria-label="Previous month">
+          ‹
+        </button>
+        <strong>
+          {visibleMonth.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          })}
+        </strong>
+        <button type="button" onClick={() => setVisibleMonth(new Date(year, month + 1, 1))} aria-label="Next month">
+          ›
+        </button>
+      </div>
+
+      <div className="calendar-grid weekdays">
+        {monthDays.map((day) => <span key={day}>{day}</span>)}
+      </div>
+
+      <div className="calendar-grid">
+        {Array.from({ length: firstDay }, (_, i) => (
+          <span key={`blank-${i}`} />
+        ))}
+
+        {Array.from({ length: totalDays }, (_, i) => {
+          const day = i + 1;
+          const key = dateKey(day);
+          const isPeriod = periodDates.includes(key);
+          const isSelected = chosenDate === key;
+
+          return (
+            <button
+              type="button"
+              key={key}
+              aria-pressed={isSelected}
+              className={[
+                isPeriod ? "period" : "",
+                isSelected ? "today" : "",
+              ].filter(Boolean).join(" ")}
+              onClick={() => {
+                setLocalSelected(key);
+                onDateClick?.(key);
+              }}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
     </div>
-  </div>;
+  );
 }
+
 
 function SectionTitle({ eyebrow, title, children }: { eyebrow?: string; title: string; children?: ReactNode }) {
   return <div className="section-title"><div>{eyebrow && <span>{eyebrow}</span>}<h2>{title}</h2></div>{children}</div>;
@@ -94,8 +159,70 @@ function Overview({ onView }: { onView: (view: View) => void }) {
   </div>;
 }
 
+
 function CalendarView() {
-  return <section className="card page-card"><SectionTitle eyebrow="CYCLE TRACKING" title="Your cycle calendar"><button className="primary small">Log period</button></SectionTitle><p className="lede">Your next period is predicted to begin in 16 days.</p><Calendar /><div className="phase-summary"><div><span className="dot rose" /><b>Period</b><small>May 5–9</small></div><div><span className="dot peach" /><b>Fertile window</b><small>May 16–21</small></div><div><span className="dot dark" /><b>Ovulation</b><small>May 19</small></div></div></section>;
+  const [selectedDate, setSelectedDate] = useState("");
+  const [markingPeriod, setMarkingPeriod] = useState(false);
+  const [periodDates, setPeriodDates] = useState<string[]>([]);
+
+  const handleDateClick = (date: string) => {
+    setSelectedDate(date);
+
+    if (markingPeriod) {
+      setPeriodDates((previous) =>
+        previous.includes(date)
+          ? previous.filter((item) => item !== date)
+          : [...previous, date]
+      );
+    }
+  };
+
+  return (
+    <section className="card page-card">
+      <SectionTitle eyebrow="CYCLE TRACKING" title="Your cycle calendar">
+        <button
+          className="primary small"
+          onClick={() => setMarkingPeriod((previous) => !previous)}
+        >
+          {markingPeriod ? "Done marking" : "Log period"}
+        </button>
+      </SectionTitle>
+
+      <p className="lede">
+        {markingPeriod
+          ? "Select the dates of your period. Click a date again to unmark it."
+          : selectedDate
+            ? `Selected date: ${selectedDate}`
+            : "Select a date on your calendar to get started."}
+      </p>
+
+      <Calendar
+        selectedDate={selectedDate}
+        periodDates={periodDates}
+        onDateClick={handleDateClick}
+      />
+
+      <div className="phase-summary">
+        <div>
+          <span className="dot rose" />
+          <b>Period</b>
+          <small>
+            {periodDates.length} date{periodDates.length === 1 ? "" : "s"} marked
+          </small>
+        </div>
+        <div>
+          <span className="dot peach" />
+          <b>Fertile window</b>
+          <small>Prediction not configured</small>
+        </div>
+        <div>
+          <span className="dot dark" />
+          <b>Ovulation</b>
+          <small>Prediction not configured</small>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function MoodView() {
