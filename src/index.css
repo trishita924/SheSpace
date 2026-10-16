@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+@import 'tailwindcss';
+
+:root { font-family: "DM Sans", sans-serif; color: #443435; background: #f6f1ec; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #f6f1ec; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; color: inherit; }
+.app-shell { min-height: 100vh; display: flex; }
+aside { width: 248px; position: fixed; inset: 0 auto 0 0; padding: 34px 22px 26px; background: #fbf8f4; border-right: 1px solid #e9dfd8; display: flex; flex-direction: column; z-index: 5; }
+.logo { display: flex; align-items: center; gap: 11px; font-family: "DM Serif Display"; font-size: 22px; color: #613c42; padding: 0 12px 34px; }
+.logo > span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50% 50% 45% 55%; background: #bd7782; color: white; font-style: italic; }
+.logo small { display: block; font-family: "DM Sans"; font-size: 7px; font-weight: 600; letter-spacing: 1.7px; margin-top: 2px; color: #a28782; }
+aside nav { display: flex; flex-direction: column; gap: 5px; }
+aside nav button { border: 0; background: transparent; display: flex; align-items: center; gap: 13px; padding: 12px 14px; border-radius: 11px; font-size: 14px; text-align: left; color: #786565; transition: .2s; }
+aside nav button:hover { background: #f7eded; }
+aside nav button.active { color: #8e4e59; background: #f2e4e3; font-weight: 600; }
+.sidebar-quote { margin-top: auto; border-radius: 14px; background: #f3e7e3; padding: 17px; color: #8b5960; }
+.sidebar-quote p { margin: 8px 0 3px; font-family: "DM Serif Display"; font-size: 16px; }
+.sidebar-quote span { font-size: 11px; color: #987a77; }
+main { margin-left: 248px; width: calc(100% - 248px); min-height: 100vh; }
+header { height: 122px; background: rgba(251,248,244,.88); border-bottom: 1px solid #eadfd8; display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(26px,4vw,60px); position: sticky; top: 0; z-index: 4; backdrop-filter: blur(12px); }
+header span, .eyebrow, .section-title > div > span { color: #ae7779; font-size: 10px; font-weight: 600; letter-spacing: 1.7px; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: "DM Serif Display"; font-weight: 400; color: #4e3638; }
+header h1 { font-size: 27px; margin: 4px 0 2px; }
+header p { margin: 0; color: #998583; font-size: 13px; }
+.header-actions, .profile-button { display: flex; align-items: center; }
+.header-actions { gap: 13px; }
+.icon-button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #e5d9d2; background: #fffdfb; display: grid; place-items: center; position: relative; }
+.icon-button i { width: 6px; height: 6px; border-radius: 50%; background: #b66875; position: absolute; right: 8px; top: 7px; border: 1px solid white; }
+.profile-button { border: 0; background: transparent; gap: 10px; text-align: left; }
+.profile-button > span { background: #d89ba0; color: white; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font-size: 14px; }
+.profile-button b, .profile-button small { display: block; }
+.profile-button b { font-size: 12px; }
+.profile-button small { color: #9b8682; font-size: 10px; margin-top: 2px; }
+.content { padding: 32px clamp(26px,4vw,60px) 50px; max-width: 1480px; margin: auto; }
+.view-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .8fr); gap: 20px; }
+.card, .cycle-card, .ai-card, .ai-page { border-radius: 20px; border: 1px solid #eadfd8; overflow: hidden; }
+.card { background: #fffdfb; padding: 25px; }
+.cycle-card { min-height: 295px; background: linear-gradient(130deg,#75444c,#a96973); color: white; padding: 30px 34px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+.cycle-card:after { content: ""; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(255,255,255,.1); position: absolute; right: -55px; top: -90px; }
+.cycle-copy { width: 58%; z-index: 1; }
+.cycle-card .eyebrow { color: #eccdd0; }
+.cycle-card h2 { color: white; font-size: 42px; margin: 10px 0 -2px; }
+.cycle-card p { color: #ead0d2; font-size: 13px; margin-bottom: 28px; }
+.phase-track { display: flex; gap: 5px; }
+.phase-track i { height: 5px; flex: 1; border-radius: 3px; background: rgba(255,255,255,.25); }
+.phase-track i:nth-child(1) { background: #e4a4aa; }.phase-track i.active { background: #f6ddd4; }
+.phase-labels { display: flex; justify-content: space-between; font-size: 8px; color: #e6c8ca; margin-top: 7px; }
+.cycle-stats { display: flex; gap: 26px; margin-top: 25px; }
+.cycle-stats > div { display: flex; gap: 8px; align-items: center; color: #efcfd1; }
+.cycle-stats b, .cycle-stats span { display: block; font-size: 11px; }
+.cycle-stats span { font-size: 9px; }
+.cycle-orbit { width: 148px; height: 148px; border-radius: 50%; background: conic-gradient(#efc4c2 0 43%,rgba(255,255,255,.18) 43%); display: grid; place-items: center; z-index: 1; box-shadow: 0 0 0 9px rgba(255,255,255,.08); }
+.orbit-inner { width: 119px; height: 119px; background: #84505a; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.orbit-inner small { font-size: 7px; letter-spacing: 1.2px; color: #e9c7c7; }.orbit-inner b { font-family: "DM Serif Display"; font-size: 37px; line-height: 1; }.orbit-inner span { font-size: 9px; }
+.section-title { display: flex; justify-content: space-between; align-items: flex-start; }
+.section-title h2 { font-size: 21px; margin: 3px 0 18px; }
+.text-button { padding: 4px 0; border: 0; background: transparent; color: #9b5964; font-size: 11px; display: flex; align-items: center; gap: 2px; }
+.calendar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.calendar-head strong { font-size: 12px; }.calendar-head button { border: 0; background: transparent; color: #a77a78; font-size: 21px; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.calendar-grid span, .calendar-grid button { text-align: center; font-size: 10px; }
+.calendar-grid span { color: #ad9993; }.calendar-grid button { border: 0; background: transparent; aspect-ratio: 1; border-radius: 50%; position: relative; max-width: 40px; justify-self: center; width: 100%; }
+.calendar-grid button.period { background: #f3d9da; color: #9a5862; }.calendar-grid button.today { outline: 1.5px solid #9a5862; font-weight: 600; }.calendar-grid button.ovulation { background: #f5e8dc; }
+.calendar-grid button i { width: 3px; height: 3px; background: #a35f69; border-radius: 50%; position: absolute; bottom: 3px; left: calc(50% - 1px); }
+.weekdays { margin-bottom: 7px; }.legend { display: flex; justify-content: center; gap: 16px; margin-top: 14px; color: #96837f; font-size: 8px; }.legend span { display: flex; align-items: center; gap: 5px; }.legend i { width: 7px; height: 7px; border-radius: 50%; }.l-period { background: #e7b8bd }.l-fertile { background: #f0ded0 }.l-ovulation { border: 1px solid #a5676f }
+.checkin-card { text-align: center; }.checkin-card .section-title { justify-content: center; }.checkin-card p { color: #a18c88; font-size: 11px; margin-top: -12px; }.moods { display: flex; justify-content: space-between; margin: 17px 0; }.moods button { border: 0; background: transparent; font-size: 8px; color: #95817e; }.moods span { display: block; font-size: 24px; filter: saturate(.65); margin-bottom: 5px; transition: .2s; }.moods button:hover span { transform: translateY(-3px); filter: none; }
+.primary { border: 0; background: #975864; color: white; border-radius: 11px; padding: 12px 20px; font-size: 11px; font-weight: 600; }.checkin-card .primary { width: 100%; }
+.ai-card { background: #f0e1df; padding: 25px; position: relative; }.ai-glow { width: 49px; height: 49px; display: grid; place-items: center; border-radius: 15px; color: white; background: #9c606a; box-shadow: 0 9px 24px rgba(129,70,79,.18); margin-bottom: 20px; }
+.ai-card h2 { font-size: 22px; margin: 5px 0 7px; }.ai-card p { color: #806d6c; font-size: 11px; max-width: 300px; line-height: 1.6; }.ai-card button { border: 0; background: transparent; color: #814b55; padding: 8px 0 0; font-size: 11px; font-weight: 600; display: flex; gap: 4px; align-items: center; }
+.insights-card { grid-column: 1/-1; }.circle-button { border: 1px solid #e4d5cf; background: transparent; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; }.insight-content { display: grid; grid-template-columns: 180px 1fr; gap: 27px; align-items: center; }.insight-visual { height: 135px; border-radius: 15px; background: radial-gradient(circle at 45% 55%,#f9ddd2 0 10%,#d99b99 11% 25%,#efd0c7 26% 42%,#f9eee7 43%); display: grid; place-items: center; }.insight-visual span { color: white; font-size: 30px; }.tag { color: #a7666e; background: #f4e6e4; padding: 5px 8px; border-radius: 5px; font-size: 8px; letter-spacing: 1px; }.insight-content h3 { font-size: 19px; margin: 12px 0 6px; }.insight-content p { color: #8d7b78; font-size: 11px; line-height: 1.6; max-width: 620px; margin-bottom: 4px; }
+.page-card { min-height: 650px; padding: 34px; }.page-card .section-title h2, .ai-page h2 { font-size: 30px; }.lede { color: #8d7b78; font-size: 13px; margin-top: -10px; }.small { padding: 10px 18px; }.calendar-full { max-width: 780px; margin: 30px auto; }.calendar-full .calendar-head { margin-bottom: 25px; }.calendar-full .calendar-head strong { font-family: "DM Serif Display"; font-size: 19px; }.calendar-full .calendar-grid { gap: 10px; }.calendar-full .calendar-grid span, .calendar-full .calendar-grid button { font-size: 13px; }.phase-summary { display: flex; justify-content: center; gap: 50px; border-top: 1px solid #eee3dc; padding-top: 25px; }.phase-summary > div { display: grid; grid-template-columns: auto auto; gap: 2px 8px; align-items: center; }.phase-summary small { grid-column: 2; color: #9a8783; }.dot { width: 10px; height: 10px; border-radius: 50%; grid-row: 1/3; }.rose { background: #e7b8bd }.peach { background: #efdaca }.dark { background: #a15c67 }
+.big-moods { display: flex; gap: 12px; margin: 32px 0; }.big-moods button { flex: 1; border: 1px solid #eadfd8; border-radius: 15px; background: #fffaf7; padding: 20px 10px; color: #786563; }.big-moods button.selected { border-color: #a8626d; background: #f6e8e7; color: #8c505a; }.big-moods span { display: block; font-size: 32px; margin-bottom: 8px; }.mood-page h3 { font-size: 18px; margin-top: 35px; }.chips { display: flex; flex-wrap: wrap; gap: 9px; }.chips button { border: 1px solid #e8d9d3; background: #fffaf7; border-radius: 99px; padding: 9px 15px; font-size: 11px; }.chips button:focus { background: #f1dcdd; border-color: #c88991; }.notes { display: block; margin-top: 30px; font-size: 12px; font-weight: 600; }.notes textarea { width: 100%; min-height: 90px; margin-top: 9px; resize: vertical; border: 1px solid #e8dcd5; border-radius: 12px; padding: 13px; background: #fffcfa; outline: none; }.notes textarea:focus { border-color: #b77680; }.save { margin-top: 16px; min-width: 140px; }
+.ai-page { min-height: 650px; background: linear-gradient(145deg,#f2e2df,#ead4d5); padding: 34px; }.ai-page-head { display: flex; gap: 18px; }.ai-page-head .ai-glow { margin: 0; }.ai-page h2 { margin: 2px 0; }.ai-page p { font-size: 12px; color: #816e6c; }.chat-card { background: rgba(255,253,251,.85); border: 1px solid rgba(255,255,255,.7); border-radius: 18px; max-width: 780px; margin: 35px auto 0; padding: 25px; }.message { background: #f5e8e5; border-radius: 3px 14px 14px 14px; padding: 16px; width: 75%; }.message b { font-size: 10px; color: #965b65; }.message p { margin: 6px 0 0; line-height: 1.6; }.suggestions { margin: 28px 0; }.suggestions span { display: block; font-size: 9px; letter-spacing: 1px; color: #a2827e; margin-bottom: 9px; }.suggestions button { border: 1px solid #dfcbc7; border-radius: 99px; background: transparent; font-size: 10px; padding: 8px 11px; margin: 0 6px 6px 0; }.chat-input { display: flex; border: 1px solid #dfd0ca; background: white; border-radius: 12px; padding: 5px; }.chat-input input { flex: 1; border: 0; padding: 10px; outline: none; font-size: 12px; background: transparent; }.chat-input button { border: 0; border-radius: 9px; background: #995965; color: white; width: 39px; display: grid; place-items: center; }.chat-card > small { display: block; text-align: center; color: #aa9691; font-size: 8px; margin-top: 9px; }
+.placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }.placeholder-icon { width: 70px; height: 70px; background: #f2e2e1; color: #94545f; border-radius: 20px; display: grid; place-items: center; margin-bottom: 20px; }.placeholder h2 { font-size: 30px; margin: 8px 0; }.placeholder p { color: #8e7b78; max-width: 380px; }.placeholder .primary { margin-top: 12px; }
+.bottom-nav { display: none; }
+@media (max-width: 1000px) {
+  aside { width: 205px; padding-left: 12px; padding-right: 12px; } main { margin-left: 205px; width: calc(100% - 205px); }
+  .view-grid { grid-template-columns: 1fr; }.insights-card { grid-column: auto; }.calendar-card { order: 2; }.checkin-card { order: 3; }.ai-card { order: 4; }.insights-card { order: 5; }
+}
+@media (max-width: 700px) {
+  aside { display: none; }.app-shell { display: block; } main { margin: 0; width: 100%; padding-bottom: 80px; }
+  header { height: 94px; padding: 17px 20px; }.header-actions .profile-button { display: none; } header h1 { font-size: 23px; } header p { font-size: 10px; }
+  .content { padding: 18px 14px 25px; }.view-grid { gap: 14px; }.card, .cycle-card, .ai-card, .ai-page { border-radius: 16px; }
+  .cycle-card { min-height: 280px; padding: 24px 20px; }.cycle-copy { width: 62%; }.cycle-orbit { width: 112px; height: 112px; }.orbit-inner { width: 90px; height: 90px; }.orbit-inner b { font-size: 29px; }.cycle-stats { gap: 12px; }.cycle-card h2 { font-size: 36px; }
+  .card { padding: 20px; }.insight-content { grid-template-columns: 1fr; }.insight-visual { height: 120px; }.page-card, .ai-page { min-height: calc(100vh - 140px); padding: 22px 18px; }.page-card .section-title h2, .ai-page h2 { font-size: 25px; }
+  .calendar-full { margin-top: 25px; }.calendar-full .calendar-grid { gap: 5px; }.phase-summary { gap: 14px; justify-content: space-between; }.phase-summary b { font-size: 10px; }.phase-summary small { font-size: 8px; }
+  .big-moods { gap: 5px; }.big-moods button { padding: 14px 3px; }.big-moods span { font-size: 25px; }.big-moods b { font-size: 9px; }
+  .message { width: 95%; }.ai-page-head { align-items: center; }.suggestions button { display: block; width: 100%; text-align: left; margin-bottom: 7px; }.chat-card { padding: 18px; }
+  .bottom-nav { position: fixed; display: flex; z-index: 10; bottom: 0; left: 0; right: 0; height: 70px; border-top: 1px solid #e4d7d0; background: rgba(255,252,249,.96); backdrop-filter: blur(16px); justify-content: space-around; padding: 7px 4px 8px; }
+  .bottom-nav button { border: 0; background: transparent; color: #9a8581; display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; font-size: 8px; }.bottom-nav button.active { color: #955560; }.bottom-nav button.active:before { content: ""; position: absolute; top: 0; width: 27px; height: 2px; background: #ae6873; border-radius: 2px; }
+}
+@media (max-width: 390px) { .cycle-orbit { width: 95px; height: 95px; }.orbit-inner { width: 76px; height: 76px; }.cycle-card { padding: 20px 16px; }.phase-labels { font-size: 7px; }.cycle-stats svg { display: none; } }
